@@ -1,6 +1,12 @@
 import {createRoot} from 'react-dom/client';
 
-document.body.innerHTML = '<div id="app"></div>';
+function NavigationBar () {
+  return <h1>sample text</h1>;
+}
 
-const root = createRoot(document.getElementById('app'));
-root.render(<p>sample text</p>);
+const domNode = document.getElementById('navigation');
+const root = createRoot(domNode);
+root.render(<NavigationBar />);
+
+
+
