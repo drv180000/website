@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Row, Col } from 'react-bootstrap';
 import Art from './art.js';
 import Projects from './projects.js';
-import Home from './';
+import Home from './index.js';
 import {
   BrowserRouter as Router,
   Routes,
