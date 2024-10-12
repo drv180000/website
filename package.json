@@ -23,7 +23,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://drv180000.github.io/src/App.js",
+  "homepage": "https://drv180000.github.io/website/src",
   "eslintConfig": {
     "extends": [
       "react-app",
