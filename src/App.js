@@ -7,7 +7,6 @@ import Art from './art.js';
 import Projects from './projects.js';
 import Home from './index.js';
 import {
-  BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
@@ -16,14 +15,12 @@ import {
 function App() {
   return (
     <div className="App">
-      <Router>
         <Navigation/>
         <Routes>
           <Route exact path='/' element={<Home/>}/>
           <Route path='/art' element={<Art/>}/>
           <Route path='/projects' element={<Projects/>}/>
         </Routes>
-      </Router>
       
       
     </div>
