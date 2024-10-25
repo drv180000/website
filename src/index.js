@@ -14,9 +14,7 @@ const router = createHashRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
+  <RouterProvider router={router} />
 );
 
 // If you want to start measuring performance in your app, pass a function
@@ -30,19 +28,19 @@ const Home = () => {
           <Row>
               <Col>
               About me goes here.
-              <h2>Personal statement:</h2>
+              <h4>Personal statement:</h4>
               <p>Lorem ipsum blah blah blah.</p>
               <br></br>
-              <h2>Degrees: </h2>
+              <h4>Degrees: </h4>
               <p></p>
               <br></br>
-              <h2>Skills: </h2> 
+              <h4>Skills: </h4> 
               <p></p>
               <br></br>
-              <h2>Organizations: </h2> 
+              <h4>Organizations: </h4> 
               <p></p>
               <br></br>
-              <h2>Previous Employment</h2>
+              <h4>Previous Employment</h4>
               <p></p>
               </Col>
           </Row>
