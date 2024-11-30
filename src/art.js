@@ -1,59 +1,65 @@
 import React, {Component, useState, useEffect} from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
-import { storage } from './firebase';
+import { storage, txtDB } from './firebase';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
+import { addDoc, collection, getDocs } from "firebase/firestore";
 import {v4} from 'uuid';
 
 const Art = () => {
     
-    const [imageUpload, setImageUpload] = useState(null);
-    const [imageList, setImageList] = useState([]);
-    const artListRef = ref(storage, "art/");
+    const [txt,setTxt] = useState('')
+    const [img,setImg] = useState('')
+    const [data,setData] = useState([])
 
-    const uploadImage = () =>{
-        if (imageUpload == null) return;
 
-        const imageRef = ref(storage, `art/${imageUpload.name + v4() }`);
-        
-        uploadBytes(imageRef, imageUpload).then((snapshot) => {
-            getDownloadURL(snapshot.ref).then((url)=>{
-                setImageList((prev)=> [...prev, url]);
-            });
-        });
-        
-    };
-
-    useEffect(() => {
-        listAll(artListRef).then((response)=>{
-            response.items.forEach((item) =>{
-                getDownloadURL(item).then((url)=>{
-                    setImageList((prev)=> [...prev, url]);
-                })
+    const handleUpload = (e) =>{
+        console.log(e.target.files[0])
+        const imgs = ref(storage,`art/${v4()}`)
+        uploadBytes(imgs,e.target.files[0]).then(data=>{
+            console.log(data,"imgs")
+            getDownloadURL(data.ref).then(val=>{
+                setImg(val)
             })
         })
-    }, [])
+    }
 
-    return (
+    const handleClick = async () =>{
+            const valRef = collection(txtDB,'txtData')
+            await addDoc(valRef,{txtVal:txt,imgUrl:img})
+            alert("Data added successfully")
+    }
+
+    const getData = async () =>{
+        const valRef = collection(txtDB,'txtData')
+        const dataDb = await getDocs(valRef)
+        const allData = dataDb.docs.map(val=>({...val.data(),id:val.id}))
+        setData(allData)
+        console.log(dataDb)
+    }
+
+    useEffect(()=>{
+        getData()
+})
+    console.log(data,"datadata")
+
+    return(
         <Container>
             <Row>
                 <Col>
-                    <br></br>
-                    <h4>Art</h4>
-                    {imageList.map((url)=>{
-                        return <img src={url}/>
-                    })}
+                    {
+                        data.map(value=><div>
+                            
+                            <img src={value.imgUrl}/> 
+                            <p>{value.txtVal}</p>
+                        </div>)
+                    }
                 </Col>
             </Row>
-
-
-
-            <input type="file" onChange={(event) => {setImageUpload(event.target.files[0])}}/>
-            <Button as="input" type="submit" value="Submit" onClick={uploadImage}/>
-
+            <input placeholder='Image Description' onChange={(e)=>setTxt(e.target.value)} /><br/>
+            <input type="file" onChange={(e)=>handleUpload(e)} /><br/><br/>
+            <Button onClick={handleClick}>Submit</Button>
         </Container>
-
-        
-    );
-};
+    )
+}
 
 export default Art;
