@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react';
-import { Container, Row, Col, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Image } from 'react-bootstrap';
 import { storage, txtDB } from './firebase';
 import { ref, uploadBytes, listAll, getDownloadURL } from 'firebase/storage';
 import { addDoc, collection, getDocs } from "firebase/firestore";
@@ -42,17 +42,17 @@ const Art = () => {
     console.log(data,"datadata")
 
     return(
-        <Container>
+        <Container fluid>
             
                 
                     {
                         data.map(value=>
                             <Row className='align-items-center'>
                                 <Col>
-                                    <img src={value.imgUrl}/> 
+                                    <Image fluid src={value.imgUrl}/> 
                                 </Col>
                                 <Col>
-                                    <figcaption>{value.txtVal}</figcaption>
+                                    <p>{value.txtVal}</p>
                                 </Col>
                             </Row>
                         )
