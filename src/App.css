@@ -41,6 +41,10 @@
 }
 
 img{
+  width: 550px;
+  margin: 10px;
+}
+figure{
   width: 600px;
   margin: 10px;
 }

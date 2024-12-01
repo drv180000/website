@@ -11,7 +11,6 @@ const Art = () => {
     const [img,setImg] = useState('')
     const [data,setData] = useState([])
 
-
     const handleUpload = (e) =>{
         console.log(e.target.files[0])
         const imgs = ref(storage,`art/${v4()}`)
@@ -44,17 +43,22 @@ const Art = () => {
 
     return(
         <Container>
-            <Row>
-                <Col>
+            
+                
                     {
-                        data.map(value=><div>
-                            
-                            <img src={value.imgUrl}/> 
-                            <p>{value.txtVal}</p>
-                        </div>)
+                        data.map(value=>
+                            <Row className='align-items-center'>
+                                <Col>
+                                    <img src={value.imgUrl}/> 
+                                </Col>
+                                <Col>
+                                    <figcaption>{value.txtVal}</figcaption>
+                                </Col>
+                            </Row>
+                        )
                     }
-                </Col>
-            </Row>
+                
+            
             <input placeholder='Image Description' onChange={(e)=>setTxt(e.target.value)} /><br/>
             <input type="file" onChange={(e)=>handleUpload(e)} /><br/><br/>
             <Button onClick={handleClick}>Submit</Button>
